@@ -1,14 +1,8 @@
 
 def merge_sort(array)
-	result = []
 
 	## smallest recurssions
-	return array if array.size == 1
-
-	if array.size == 2
-		array[0], array[1] = array[1], array[0] if array[0] > array [1]
-		return array
-	end
+	return array if array.size <= 1
 
 	## divide & recurssion
 	left = merge_sort(array[0..(array.size/2 - 1)])  
@@ -16,18 +10,15 @@ def merge_sort(array)
 
 	## merge
 	result = []
-	until left.size == 0 || right.size == 0
-		if left[0] <= right[0]
-			result << left[0]
-			left.delete_at(0)
+	until left.empty? || right.empty?
+		if left[0] < right[0]
+			result << left.shift
 		else
-			result << right[0]
-			right.delete_at(0)
+			result << right.shift
 		end
 	end
 
-	left.each { |n| result << n } if right.size == 0
-	right.each { |n| result << n } if left.size == 0
+	result += left + right
 	
 	result
 end
